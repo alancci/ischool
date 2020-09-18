@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 /**
  * @desc shiro配置类
  * @author  alancci
@@ -42,17 +41,18 @@ public class ShiroConfig {
          */
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
         filterMap.put("/add?", "authc");
-
+        filterMap.put("/update", "authc");
         filterMap.put("/toRegister","anon");
-
-
+        filterMap.put("/register","anon");
+        filterMap.put("/loginview", "anon");
+        filterMap.put("/getImage", "anon");
         filterMap.put("/login", "anon");
         filterMap.put("/add", "perm[user:add:*]");
         filterMap.put("/*","authc");
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
+        shiroFilterFactoryBean.setSuccessUrl("index");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
-
 
         return shiroFilterFactoryBean;
     }
