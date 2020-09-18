@@ -7,20 +7,20 @@ import lombok.NoArgsConstructor;
 import java.util.Date;
 
 /**
- * @desc 
+ * @desc 用户实体类
  * @author  alancci
  * @date   2020/9/18 15:05
  */
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 public class User {
 	private Integer userId;
 	private String realName;
-	private String nickName;
+	private String userName;
 	private Integer sex;
 	private String phone;
-	private Date pirthday;
+	private Date birthday;
 	private String email;
 	private String headerImage;
 	private String question;
@@ -29,17 +29,51 @@ public class User {
 	private Integer userLevel;
 	private String password;
 	private Integer isEffected;
-	private Integer isWork;
+	private Integer isEnabled;
 	private String remark;
 	private Date createTime;
-	
-	public Integer getIsWork() {
-		return isWork;
-	}
-	public void setIsWork(Integer isWork) {
-		this.isWork = isWork;
-	}
-	public String getRemark() {
+
+    public Date getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(Date birthday) {
+        this.birthday = birthday;
+    }
+
+    public Integer getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(Integer userLevel) {
+        this.userLevel = userLevel;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Integer getIsEffected() {
+        return isEffected;
+    }
+
+    public void setIsEffected(Integer isEffected) {
+        this.isEffected = isEffected;
+    }
+
+    public Integer getIsEnabled() {
+        return isEnabled;
+    }
+
+    public void setIsEnabled(Integer isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
+    public String getRemark() {
 		return remark;
 	}
 	public void setRemark(String remark) {
@@ -57,13 +91,16 @@ public class User {
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
-	public String getNickName() {
-		return nickName;
-	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	public Integer getSex() {
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public Integer getSex() {
 		return sex;
 	}
 	public void setSex(Integer sex) {
@@ -74,12 +111,6 @@ public class User {
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public Date getPirthday() {
-		return pirthday;
-	}
-	public void setPirthday(Date pirthday) {
-		this.pirthday = pirthday;
 	}
 	public String getEmail() {
 		return email;
@@ -117,7 +148,27 @@ public class User {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	
-	
-	
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", realName='" + realName + '\'' +
+                ", userName='" + userName + '\'' +
+                ", sex=" + sex +
+                ", phone='" + phone + '\'' +
+                ", birthday=" + birthday +
+                ", email='" + email + '\'' +
+                ", headerImage='" + headerImage + '\'' +
+                ", question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                ", userCategory='" + userCategory + '\'' +
+                ", userLevel=" + userLevel +
+                ", password='" + password + '\'' +
+                ", isEffected=" + isEffected +
+                ", isEnabled=" + isEnabled +
+                ", remark='" + remark + '\'' +
+                ", createTime=" + createTime +
+                '}';
+    }
 }

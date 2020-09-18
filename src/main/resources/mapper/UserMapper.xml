@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.ischool.mapper.UserMapper">
+
+    <resultMap id="UserMap" type="com.project.ischool.entity.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="nick_name" property="userName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="header_image" property="headerImage" jdbcType="VARCHAR" />
+        <result column="question" property="question" jdbcType="VARCHAR" />
+        <result column="answer" property="answer" jdbcType="VARCHAR" />
+        <result column="user_category" property="userCategory" jdbcType="VARCHAR" />
+        <result column="user_level" property="userLevel" jdbcType="INTEGER" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="is_effected" property="isEffected" jdbcType="INTEGER" />
+        <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <!--<collection property="roles" ofType="com.project.springbootshiro.pojo.Role" javaType="list">-->
+            <!--<id property="roleID" column="roleID"/>-->
+            <!--<result property="roleName" column="roleName"/>-->
+        <!--</collection>-->
+    </resultMap>
+    <resultMap id="RoleMap" type="com.project.ischool.entity.Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name"/>
+        <collection property="perm" ofType="com.project.ischool.entity.Perm" javaType="list">
+            <id property="permId" column="perm_id"/>
+            <result property="url" column="url"/>
+            <result property="permName" column="perm_name"/>
+        </collection>
+    </resultMap>
+    <select id="queryAll" resultType="com.project.ischool.entity.User">
+        select user_id,real_name,user_name,password,user_level,user_category,sex,phone,birthday,email,header_image,question,answer,create_time,is_effected,is_enabled,remark
+        from user
+    </select>
+    <select id="findByUserName" resultMap="UserMap" parameterType="java.lang.String">
+        select user_id,real_name,user_name,password,user_level,user_category,sex,phone,birthday,email,header_image,question,answer,create_time,is_effected,is_enabled,remark
+        from user
+        where user_name = #{userName}
+    </select>
+    <!--<insert id="addUser">-->
+        <!--insert into user-->
+        <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+            <!--<if test="userId !=null and userId !=''">-->
+                <!--user_id = #{userId},-->
+            <!--</if>-->
+            <!--<if test="realName != null and realName !=''">-->
+                <!--real_name = #{realName},-->
+            <!--</if>-->
+        <!--</trim>-->
+    <!--</insert>-->
+    <insert id="addUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.project.ischool.entity.User">
+		insert into
+		user(real_name,user_name,email,password,sex,phone,birthday,
+		header_image,question,answer,user_category,user_level,
+		is_effected,is_enabled,remark,create_time)
+		values(#{realName},#{userName},#{email},#{password},
+		#{sex},#{phone},#{birthday},
+		#{headerImage},#{question},#{answer},#{userCategory},
+		#{userLevel},#{isEffected},#{isEnabled},#{remark},#{createTime})
+	</insert>
+    <update id="updateUser" parameterType="com.project.ischool.entity.User">
+        update user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="userName != null and userName != ''">
+                user_name = #{userName},
+            </if>
+            <if test="realName != null and realName != ''">
+                real_name = #{realName},
+            </if>
+            <if test="password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="sex != null">sex = #{sex},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="headerImage != null and headerImage != ''">
+                header_image = #{headerImage},
+            </if>
+            <if test="question != null and question != ''">
+                question = #{question},
+            </if>
+            <if test="answer != null and answer != ''">
+                answer = #{answer},
+            </if>
+            <if test="userCategory != null and userCategory != ''">
+                user_category = #{userCategory},
+            </if>
+            <if test="userLevel != null">
+                user_level = #{userLevel},
+            </if>
+            <if test="isEffected != null">
+                is_effected = #{isEffected},
+            </if>
+            <if test="isEnabled != null">
+                is_Enabled = #{isEnabled},
+            </if>
+            <if test="remark != null and remark !=''">
+                remark = #{remark},
+            </if>
+        </trim>
+        where user_id = #{userId}
+    </update>
+    <delete id="deleteUser" >
+        delete from user
+        where user_id = #{userId}
+    </delete>
+    <!--<select id="findByName"  resultMap="UserMap">-->
+        <!--select u.userID,u.username,u.password,u.salt,r.roleID,r.roleName from user u-->
+        <!--left join user_role ur on u.userID = ur.userID-->
+        <!--left join role r on ur.roleID = r.roleID-->
+        <!--where username = #{username}-->
+    <!--</select>-->
+    <!--<select id="findPermsByRoleId"  resultType="com.project.springbootshiro.pojo.Perm">-->
+        <!--select p.id,p.name,p.url-->
+        <!--from role r-->
+        <!--left join role_perms rp on r.roleID = rp.roleid-->
+        <!--left join perms p on p.id = rp.permid-->
+        <!--where r.roleID = #{roleID}-->
+    <!--</select>-->
+
+    <!--<select id="queryAllUser" resultMap="UserMap" >-->
+         <!--select userID,username,password,roleName  from user u,role r-->
+         <!--where u.userID = r.userID;-->
+    <!--</select>-->
+    <!--<insert id="register" >-->
+        <!--insert into user(username, password, salt) values (#{username},#{password},#{salt})-->
+    <!--</insert>-->
+</mapper>
