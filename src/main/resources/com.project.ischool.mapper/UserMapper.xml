@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.ischool.mapper.UserMapper">
+
+    <resultMap id="UserMap" type="com.project.ischool.entity.User">
+        <id column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="real_name" property="realName" jdbcType="VARCHAR" />
+        <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+        <result column="sex" property="sex" jdbcType="INTEGER" />
+        <result column="phone" property="phone" jdbcType="VARCHAR" />
+        <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+        <result column="email" property="email" jdbcType="VARCHAR" />
+        <result column="header_image" property="headerImage" jdbcType="VARCHAR" />
+        <result column="question" property="question" jdbcType="VARCHAR" />
+        <result column="answer" property="answer" jdbcType="VARCHAR" />
+        <result column="user_category" property="userCategory" jdbcType="VARCHAR" />
+        <result column="user_level" property="userLevel" jdbcType="INTEGER" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="is_effected" property="isEffected" jdbcType="INTEGER" />
+        <result column="is_enabled" property="isEnabled" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="INTEGER" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <collection property="roles" ofType="com.project.springbootshiro.pojo.Role" javaType="list">
+            <id property="roleID" column="roleID"/>
+            <result property="roleName" column="roleName"/>
+        </collection>
+    </resultMap>
+    <resultMap id="RoleMap" type="com.project.springbootshiro.pojo.Role">
+        <id property="roleID" column="roleID"/>
+        <result property="roleName" column="roleName"/>
+        <collection property="perms" ofType="com.project.springbootshiro.pojo.Perms" javaType="list">
+            <id property="id" column="id"/>
+            <result property="url" column="url"/>
+            <result property="name" column="name"/>
+        </collection>
+    </resultMap>
+    <!--<select id="findByName"  resultMap="UserMap">-->
+        <!--select u.userID,u.username,u.password,u.salt,r.roleID,r.roleName from user u-->
+        <!--left join user_role ur on u.userID = ur.userID-->
+        <!--left join role r on ur.roleID = r.roleID-->
+        <!--where username = #{username}-->
+    <!--</select>-->
+    <!--<select id="findPermsByRoleId"  resultType="com.project.springbootshiro.pojo.Perm">-->
+        <!--select p.id,p.name,p.url-->
+        <!--from role r-->
+        <!--left join role_perms rp on r.roleID = rp.roleid-->
+        <!--left join perms p on p.id = rp.permid-->
+        <!--where r.roleID = #{roleID}-->
+    <!--</select>-->
+
+    <!--<select id="queryAllUser" resultMap="UserMap" >-->
+         <!--select userID,username,password,roleName  from user u,role r-->
+         <!--where u.userID = r.userID;-->
+    <!--</select>-->
+    <!--<insert id="register" >-->
+        <!--insert into user(username, password, salt) values (#{username},#{password},#{salt})-->
+    <!--</insert>-->
+</mapper>
