@@ -1,6 +1,7 @@
 package com.project.ischool.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
+import com.project.ischool.shiro.redisCache.RedisCacheManager;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -40,15 +41,15 @@ public class ShiroConfig {
          *       role: 该资源必须得到角色权限才可以访问
          */
         Map<String,String> filterMap = new LinkedHashMap<String,String>();
-        filterMap.put("/add?", "authc");
-        filterMap.put("/update", "authc");
-        filterMap.put("/toRegister","anon");
-        filterMap.put("/register","anon");
-        filterMap.put("/loginview", "anon");
-        filterMap.put("/getImage", "anon");
-        filterMap.put("/login", "anon");
-        filterMap.put("/add", "perm[user:add:*]");
-        filterMap.put("/*","authc");
+//        filterMap.put("/add?", "authc");
+//        filterMap.put("/update", "authc");
+//        filterMap.put("/toRegister","anon");
+//        filterMap.put("/register","anon");
+//        filterMap.put("/loginview", "anon");
+//        filterMap.put("/getImage", "anon");
+//        filterMap.put("/login", "anon");
+//        filterMap.put("/add", "perm[user:add:*]");
+        filterMap.put("/*","anon ");
         shiroFilterFactoryBean.setLoginUrl("/login");
         shiroFilterFactoryBean.setUnauthorizedUrl("/unAuth");
         shiroFilterFactoryBean.setSuccessUrl("index");
@@ -60,6 +61,12 @@ public class ShiroConfig {
     public DefaultSecurityManager getSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
+        securityManager.setCacheManager(new RedisCacheManager());
+        userRealm.setCachingEnabled(true);
+        userRealm.setAuthenticationCachingEnabled(true);
+        userRealm.setAuthenticationCacheName("authentication");
+        userRealm.setAuthorizationCachingEnabled(true);
+        userRealm.setAuthorizationCacheName("authorization");
         return securityManager;
     }
     @Bean(name = "userRealm")

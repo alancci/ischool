@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @desc 用户实体类
@@ -32,8 +33,17 @@ public class User {
 	private Integer isEnabled;
 	private String remark;
 	private Date createTime;
+	private List<Role> role;
 
-    public Date getBirthday() {
+	public List<Role> getRole() {
+		return role;
+	}
+
+	public void setRole(List<Role> role) {
+		this.role = role;
+	}
+
+	public Date getBirthday() {
         return birthday;
     }
 
@@ -149,26 +159,27 @@ public class User {
 		this.createTime = createTime;
 	}
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", realName='" + realName + '\'' +
-                ", userName='" + userName + '\'' +
-                ", sex=" + sex +
-                ", phone='" + phone + '\'' +
-                ", birthday=" + birthday +
-                ", email='" + email + '\'' +
-                ", headerImage='" + headerImage + '\'' +
-                ", question='" + question + '\'' +
-                ", answer='" + answer + '\'' +
-                ", userCategory='" + userCategory + '\'' +
-                ", userLevel=" + userLevel +
-                ", password='" + password + '\'' +
-                ", isEffected=" + isEffected +
-                ", isEnabled=" + isEnabled +
-                ", remark='" + remark + '\'' +
-                ", createTime=" + createTime +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + userId +
+				", realName='" + realName + '\'' +
+				", userName='" + userName + '\'' +
+				", sex=" + sex +
+				", phone='" + phone + '\'' +
+				", birthday=" + birthday +
+				", email='" + email + '\'' +
+				", headerImage='" + headerImage + '\'' +
+				", question='" + question + '\'' +
+				", answer='" + answer + '\'' +
+				", userCategory='" + userCategory + '\'' +
+				", userLevel=" + userLevel +
+				", password='" + password + '\'' +
+				", isEffected=" + isEffected +
+				", isEnabled=" + isEnabled +
+				", remark='" + remark + '\'' +
+				", createTime=" + createTime +
+				", role=" + role +
+				'}';
+	}
 }
