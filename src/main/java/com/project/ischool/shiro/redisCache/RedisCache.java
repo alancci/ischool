@@ -15,7 +15,7 @@ public class RedisCache<K,V> implements Cache<K,V> {
 
     @Autowired
     private RedisTemplate redisTemplate;
-    
+
     private String cacheName;
 
     public RedisCache(String cacheName) {
@@ -67,8 +67,5 @@ public class RedisCache<K,V> implements Cache<K,V> {
         System.out.println(redisTemplate+"对象存在");
         return redisTemplate;
     }
-
-
-
 
 }
