@@ -2,6 +2,7 @@ package com.project.ischool.shiro;
 
 import at.pollux.thymeleaf.shiro.dialect.ShiroDialect;
 import com.project.ischool.shiro.redisCache.RedisCacheManager;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -18,12 +19,12 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-
-
+    
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();
     }
+
     @Bean
     public ShiroFilterFactoryBean getShiroFilterFactoryBean(@Qualifier("securityManager") DefaultSecurityManager securityManager){
         ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
@@ -57,20 +58,30 @@ public class ShiroConfig {
 
         return shiroFilterFactoryBean;
     }
+
     @Bean(name = "securityManager")
     public DefaultSecurityManager getSecurityManager(@Qualifier("userRealm") UserRealm userRealm){
+
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(userRealm);
-        securityManager.setCacheManager(new RedisCacheManager());
+        return securityManager;
+
+    }
+    @Bean(name = "userRealm")
+    public UserRealm userRealm(){
+        UserRealm userRealm = new UserRealm();
+        //加密密码
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("md5");
+        hashedCredentialsMatcher.setHashIterations(1024);
+        userRealm.setCredentialsMatcher(hashedCredentialsMatcher);
+        //用户领域设置缓存
+        userRealm.setCacheManager(new RedisCacheManager());
         userRealm.setCachingEnabled(true);
         userRealm.setAuthenticationCachingEnabled(true);
         userRealm.setAuthenticationCacheName("authentication");
         userRealm.setAuthorizationCachingEnabled(true);
         userRealm.setAuthorizationCacheName("authorization");
-        return securityManager;
-    }
-    @Bean(name = "userRealm")
-    public UserRealm userRealm(){
-        return new UserRealm();
+        return userRealm;
     }
 }

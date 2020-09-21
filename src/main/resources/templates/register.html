@@ -30,6 +30,7 @@
         <input name="password" lay-verify="required" placeholder="密码"  type="password" class="layui-input">
         <hr class="hr15">
         <input value="注册" lay-submit lay-filter="login" style="width:100%;" type="submit">
+        <div th:text="${msgRegister}"></div>
     </form>
 
 </div>

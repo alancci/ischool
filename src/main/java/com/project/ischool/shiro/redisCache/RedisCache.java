@@ -22,41 +22,41 @@ public class RedisCache<K,V> implements Cache<K,V> {
 
     @Override
     public V get(K k) throws CacheException {
-        return (V) redisTemplate.opsForHash().get(this.cacheName,k.toString());
+        return (V) getRedisTemplate().opsForHash().get(this.cacheName,k.toString());
     }
 
     @Override
     public V put(K k, V v) throws CacheException {
          System.out.println("put key:"+k+"    "+"put value"+v);
-         redisTemplate.opsForHash().put(this.cacheName,k.toString(),v);
+        getRedisTemplate().opsForHash().put(this.cacheName,k.toString(),v);
          return null;
     }
 
     @Override
     public V remove(K k) throws CacheException {
-        redisTemplate.opsForHash().delete(this.cacheName,k.toString());
+        getRedisTemplate().opsForHash().delete(this.cacheName,k.toString());
         return null;
     }
 
     @Override
     public void clear() throws CacheException {
-        redisTemplate.opsForHash().delete(this.cacheName);
+        getRedisTemplate().opsForHash().delete(this.cacheName);
 
     }
 
     @Override
     public int size() {
-        return redisTemplate.opsForHash().size(this.cacheName).intValue();
+        return getRedisTemplate().opsForHash().size(this.cacheName).intValue();
     }
 
     @Override
     public Set<K> keys() {
-        return redisTemplate.opsForHash().keys(this.cacheName);
+        return getRedisTemplate().opsForHash().keys(this.cacheName);
     }
 
     @Override
     public Collection<V> values() {
-        return redisTemplate.opsForHash().values(this.cacheName);
+        return getRedisTemplate().opsForHash().values(this.cacheName);
     }
     public static RedisTemplate getRedisTemplate(){
         RedisTemplate redisTemplate = (RedisTemplate) ApplicationContextUtils.getBean("redisTemplate");

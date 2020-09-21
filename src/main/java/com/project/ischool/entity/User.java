@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -15,10 +16,10 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class User{
 	private Integer userId;
-	private String realName;
 	private String userName;
+    private String realName;
 	private Integer sex;
 	private String phone;
 	private Date birthday;
@@ -34,8 +35,17 @@ public class User {
 	private String remark;
 	private Date createTime;
 	private List<Role> role;
+	private String salt;
 
-	public List<Role> getRole() {
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
+    public List<Role> getRole() {
 		return role;
 	}
 
@@ -180,6 +190,7 @@ public class User {
 				", remark='" + remark + '\'' +
 				", createTime=" + createTime +
 				", role=" + role +
+				", salt='" + salt + '\'' +
 				'}';
 	}
 }
