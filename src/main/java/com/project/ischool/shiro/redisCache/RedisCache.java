@@ -12,8 +12,10 @@ import java.util.Collection;
 import java.util.Set;
 
 public class RedisCache<K,V> implements Cache<K,V> {
+
     @Autowired
     private RedisTemplate redisTemplate;
+    
     private String cacheName;
 
     public RedisCache(String cacheName) {
