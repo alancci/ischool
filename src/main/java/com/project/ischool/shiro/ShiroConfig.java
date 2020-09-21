@@ -19,7 +19,7 @@ import java.util.Map;
  */
 @Configuration
 public class ShiroConfig {
-    
+
     @Bean
     public ShiroDialect shiroDialect() {
         return new ShiroDialect();

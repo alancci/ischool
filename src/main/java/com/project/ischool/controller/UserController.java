@@ -1,6 +1,7 @@
 package com.project.ischool.controller;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.project.ischool.entity.User;
 import com.project.ischool.service.UserService;
 import com.project.ischool.utils.DateUtils;
@@ -16,6 +17,8 @@ import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +34,13 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    @Qualifier("masterRedisTemplate")
+    private RedisTemplate masterRedisTemplate;
+    @Autowired
+    @Qualifier("slaveRedisTemplate")
+    private RedisTemplate slaveRedisTemplate;
+    private String userCache = "userCache";
 
     @RequestMapping("/toLogin")
     public String toLogin(){
@@ -74,6 +83,7 @@ public class UserController {
     public String toRegister(){
         return "register";
     }
+
     @RequestMapping("/register")
     public String register(String username,String password,Model model){
         Lock lock = new ReentrantLock();
@@ -88,6 +98,8 @@ public class UserController {
                     user.setIsEffected(1);
                     user.setIsEnabled(1);
                     userService.addUser(user);
+                    String userString = JSONObject.toJSONString(user);
+                    masterRedisTemplate.opsForHash().put(userCache,username,userString);
                     System.out.println("注册成功");
                     return "redirect:/toLogin";
                 }catch (Exception e){
