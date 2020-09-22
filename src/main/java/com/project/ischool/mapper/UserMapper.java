@@ -1,6 +1,5 @@
 package com.project.ischool.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.project.ischool.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;

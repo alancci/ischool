@@ -33,34 +33,6 @@ mybatis-plus:
     lazyLoadingEnabled: true #延时加载的开关
     multipleResultSetsEnabled: true #开启的话，延时加载一个属性时会加载该对象全部属性，否则按需加载属性
 
-
-#spring:
-#  datasource:
-#    username: root
-#    password: root
-#    url: jdbc:mysql://192.168.1.178:3306/ischool?zeroDateTimeBehavior=convertToNull&useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&autoReconnect=true
-#    continue-on-error: true
-#    sql-script-encoding: UTF-8
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    type: com.alibaba.druid.pool.DruidDataSource
-#    druid:
-#      initial-size: 5
-#      min-idle: 5
-#      max-active: 20
-#      max-wait: 60000
-#      # 间隔多久进行一次检测，检测需要关闭的空闲连接
-#      time-between-eviction-runs-millis: 60000
-#      # 一个连接在池中最小生存的时间
-#      min-evictable-idle-time-millis: 300000
-#      validation-query: SELECT 1 FROM DUAL
-#      test-while-idle: true
-#      #      test-on-borrow: false
-#      #      test-on-return: false
-#      pool-prepared-statements: true
-#      max-pool-prepared-statement-per-connection-size: 20
-#      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
-#      use-global-data-source-stat: true
-#      filters: stat,wall,log4j2
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
@@ -93,3 +65,14 @@ spring:
     host: 192.168.1.178
     port: 6379
     password:
+
+#注册中心地址
+#扫描指定包下服务
+dubbo:
+  application:
+    name: ischool
+  registry:
+    address: 192.168.1.178:2181
+    protocol: zookeeper
+  scan:
+    base-packages: com.project.ischool.service.impl

@@ -6,6 +6,7 @@ import com.project.ischool.service.UserService;
 import com.project.ischool.utils.SaltUtils;
 import org.apache.shiro.crypto.hash.Md5Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +18,8 @@ import java.util.List;
  */
 @Transactional
 @Service
+@org.apache.dubbo.config.annotation.Service
+@Component
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;

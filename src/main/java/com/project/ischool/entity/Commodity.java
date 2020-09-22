@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class Commodity {
 	private Integer id;
-	private User user;
+	private Integer userId;
 	private String commodityCategory;
 	private String title;
 	private String content;
@@ -19,7 +19,6 @@ public class Commodity {
 	private String phone;
 	private Date createTime;
 	private String createTimes;
-	private Integer userId;
 	private String realName;
 	private String headerImage;
 
@@ -59,13 +58,6 @@ public class Commodity {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-
 	public String getTitle() {
 		return title;
 	}
