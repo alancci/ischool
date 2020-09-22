@@ -24,8 +24,8 @@
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="salt" property="salt" jdbcType="VARCHAR"/>
         <!--<collection property="roles" ofType="com.project.springbootshiro.pojo.Role" javaType="list">-->
-            <!--<id property="roleID" column="roleID"/>-->
-            <!--<result property="roleName" column="roleName"/>-->
+        <!--<id property="roleID" column="roleID"/>-->
+        <!--<result property="roleName" column="roleName"/>-->
         <!--</collection>-->
     </resultMap>
     <resultMap id="RoleMap" type="com.project.ischool.entity.Role">
@@ -47,15 +47,15 @@
         where user_name = #{userName}
     </select>
     <!--<insert id="addUser">-->
-        <!--insert into user-->
-        <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
-            <!--<if test="userId !=null and userId !=''">-->
-                <!--user_id = #{userId},-->
-            <!--</if>-->
-            <!--<if test="realName != null and realName !=''">-->
-                <!--real_name = #{realName},-->
-            <!--</if>-->
-        <!--</trim>-->
+    <!--insert into user-->
+    <!--<trim prefix="(" suffix=")" suffixOverrides=",">-->
+    <!--<if test="userId !=null and userId !=''">-->
+    <!--user_id = #{userId},-->
+    <!--</if>-->
+    <!--<if test="realName != null and realName !=''">-->
+    <!--real_name = #{realName},-->
+    <!--</if>-->
+    <!--</trim>-->
     <!--</insert>-->
     <insert id="addUser" useGeneratedKeys="true" keyProperty="userId" parameterType="com.project.ischool.entity.User">
 		insert into
@@ -125,24 +125,24 @@
         where user_id = #{userId}
     </delete>
     <!--<select id="findByName"  resultMap="UserMap">-->
-        <!--select u.userID,u.username,u.password,u.salt,r.roleID,r.roleName from user u-->
-        <!--left join user_role ur on u.userID = ur.userID-->
-        <!--left join role r on ur.roleID = r.roleID-->
-        <!--where username = #{username}-->
+    <!--select u.userID,u.username,u.password,u.salt,r.roleID,r.roleName from user u-->
+    <!--left join user_role ur on u.userID = ur.userID-->
+    <!--left join role r on ur.roleID = r.roleID-->
+    <!--where username = #{username}-->
     <!--</select>-->
     <!--<select id="findPermsByRoleId"  resultType="com.project.springbootshiro.pojo.Perm">-->
-        <!--select p.id,p.name,p.url-->
-        <!--from role r-->
-        <!--left join role_perms rp on r.roleID = rp.roleid-->
-        <!--left join perms p on p.id = rp.permid-->
-        <!--where r.roleID = #{roleID}-->
+    <!--select p.id,p.name,p.url-->
+    <!--from role r-->
+    <!--left join role_perms rp on r.roleID = rp.roleid-->
+    <!--left join perms p on p.id = rp.permid-->
+    <!--where r.roleID = #{roleID}-->
     <!--</select>-->
 
     <!--<select id="queryAllUser" resultMap="UserMap" >-->
-         <!--select userID,username,password,roleName  from user u,role r-->
-         <!--where u.userID = r.userID;-->
+    <!--select userID,username,password,roleName  from user u,role r-->
+    <!--where u.userID = r.userID;-->
     <!--</select>-->
     <!--<insert id="register" >-->
-        <!--insert into user(username, password, salt) values (#{username},#{password},#{salt})-->
+    <!--insert into user(username, password, salt) values (#{username},#{password},#{salt})-->
     <!--</insert>-->
 </mapper>

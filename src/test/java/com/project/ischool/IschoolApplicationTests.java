@@ -2,6 +2,7 @@ package com.project.ischool;
 
 import com.project.ischool.entity.User;
 import com.project.ischool.mapper.UserMapper;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ class IschoolApplicationTests {
     void contextLoads() {
     }
 
+
     @Autowired
     RedisTemplate redisTemplate;
 
@@ -35,6 +37,10 @@ class IschoolApplicationTests {
         user1.setUserId(123);
         user1.setUserName("222333");
         user1.setCreateTime(new Date());
+        System.out.println(("----- selectAll method test ------"));
+//        List<User> userList = userMapper.selectList(null);
+//        Assert.assertEquals(5, userList.size());
+//        userList.forEach(System.out::println);
 //        userMapper.addUser(user1);
 //        userMapper.updateUser(user1);
 //        userMapper.deleteUser(user1);
